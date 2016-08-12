@@ -41,7 +41,7 @@ angular.module('myApp.services', [])
                 return photos;
             },
             getPhoto: function (id) {
-                    return $filter('filter')(photos, {id: id})[0];
+                return $filter('filter')(photos, {id: id})[0];
             },
             updatePhoto: function (newPhoto) {
                 photos[newPhoto.id - 1] = newPhoto;
