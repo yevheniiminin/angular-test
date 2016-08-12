@@ -1,0 +1,26 @@
+<div class="wrapper" ng-controller="HomeCtrl">
+    <div>Photo gallery</div>
+    <div class="col-md-8">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name <input type="text" placeholder="Search..." ng-model="search.name"></th>
+                <th>Author</th>
+                <th>Likes count</th>
+                <th>Visible</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="photo in photos | filter: search">
+                <td>{{photo.id}}</td>
+                <td><a href="#!/photo/{{photo.id}}">{{photo.name}}</a></td>
+                <td>{{photo.author}}</td>
+                <td>{{photo.likes}}</td>
+                <td>{{photo.visible}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
