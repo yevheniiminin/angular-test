@@ -1,26 +1,33 @@
-<div class="wrapper" ng-controller="HomeCtrl">
-    <div>Photo gallery</div>
+<div class="container-fluid" ng-controller="HomeCtrl">
+    <h1 class="page-header">Photo gallery</h1>
     <div class="col-md-8">
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name <input type="text" placeholder="Search..." ng-model="search.name"></th>
-                <th>Author</th>
-                <th>Likes count</th>
-                <th>Visible</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="photo in photos | filter: search">
-                <td>{{photo.id}}</td>
-                <td><a href="#!/photo/{{photo.id}}">{{photo.name}}</a></td>
-                <td>{{photo.author}}</td>
-                <td>{{photo.likes}}</td>
-                <td>{{photo.visible}}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="panel panel-default">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                Name <input type="text" placeholder="Search..." ng-model="search.name" class="form-control">
+                            </div>
+                        </form>
+                    </th>
+                    <th>Author</th>
+                    <th>Likes count</th>
+                    <th>Visible</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="photo in photos | filter: search">
+                    <td>{{photo.id}}</td>
+                    <td><a href="#!/photo/{{photo.id}}">{{photo.name}}</a></td>
+                    <td>{{photo.author}}</td>
+                    <td>{{photo.likes}}</td>
+                    <td><input type="checkbox" ng-checked="photo.visible" disabled> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>
