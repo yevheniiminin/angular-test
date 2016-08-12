@@ -1,4 +1,4 @@
-angular.module('myApp.services', ['ngResource'])
+angular.module('myApp.services', [])
 
     .factory('photoManager', ['$http', '$filter', function ($http, $filter) {
         var photos = [
