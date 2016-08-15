@@ -9,6 +9,27 @@ angular.module('myApp.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeCtrl', ['$scope', 'photoManager', function ($scope, photoManager) {
-        $scope.photos = photoManager.getPhotos();
+    .filter('startFrom', function () {
+        return function (input, start) {
+            return input.slice(+start);
+        }
+    })
+
+    .controller('HomeCtrl', ['$scope', '$filter', 'photoManager', function ($scope, $filter, photoManager) {
+        $scope.currentPage = 0;
+        $scope.photos = [];
+        $scope.pageSize = 10;
+        $scope.search = '';
+
+        photoManager.getPhotos().then(function (photos) {
+            $scope.photos = photos;
+            $scope.filteredPhotos = photos;
+
+            $scope.onUserSearch = function () {
+                $scope.filteredPhotos = $filter('filter')($scope.photos, $scope.search);
+            };
+            $scope.numberOfPages = function () {
+                return Math.ceil($scope.getData().length / $scope.pageSize);
+            };
+        });
     }]);

@@ -1,6 +1,7 @@
 <div class="container-fluid" ng-controller="HomeCtrl">
     <h1 class="page-header">Photo gallery</h1>
     <div class="col-md-8">
+        <div>Length: {{filteredPhotos.length}}</div>
         <div class="panel panel-default">
             <table class="table table-bordered table-hover">
                 <thead>
@@ -9,7 +10,9 @@
                     <th>
                         <form class="form-inline">
                             <div class="form-group">
-                                Name <input type="text" placeholder="Search..." ng-model="search.name" class="form-control">
+                                Name <input type="text" placeholder="Search..." ng-model="search"
+                                            ng-change="onUserSearch()"
+                                            ng-model-options="{ debounce: 250 }" class="form-control">
                             </div>
                         </form>
                     </th>
@@ -19,15 +22,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="photo in photos | filter: search">
-                    <td>{{photo.id}}</td>
-                    <td><a href="#!/photo/{{photo.id}}">{{photo.name}}</a></td>
-                    <td>{{photo.author}}</td>
-                    <td>{{photo.likes}}</td>
-                    <td><input type="checkbox" ng-checked="photo.visible" disabled> </td>
+                <tr ng-repeat="photo in photos | filter: search | startFrom: currentPage * pageSize | limitTo: pageSize">
+                    <td>{{::photo.id}}</td>
+                    <td><a href="#!/photo/{{::photo.id}}">{{::photo.name}}</a></td>
+                    <td>{{::photo.author}}</td>
+                    <td>{{::photo.likes}}</td>
+                    <td><input type="checkbox" ng-checked="photo.visible" disabled></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+        <button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage = currentPage - 1">Prev
+        </button>
+        <button class="btn btn-default" ng-disabled="currentPage >= filteredPhotos.length / pageSize - 1"
+                ng-click="currentPage = currentPage + 1">Next
+        </button>
+
     </div>
 </div>
